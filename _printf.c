@@ -20,7 +20,7 @@ int _printf(const char *format, ...)
 	va_start(v_ls, format);
 	while (format[x])
 	{
-		buf_wr(buf);
+		buf_write(buf);
 		if (format[x] == '%')
 		{
 			r = opid(buf, v_ls, format, x);
