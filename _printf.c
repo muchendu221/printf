@@ -2,51 +2,44 @@
 #include <stdlib.h>
 
 /**
- * _printf - prints and input into the standard output
- * @format: the format string
- * Return: number of bytes printed
+ * _printf - prints any string with certain flags for modification
+ * @format: the string of characters to write to buffer
+ * Return: an integer that counts how many writes to the buffer were made
  */
-
 int _printf(const char *format, ...)
-
 {
-	int s = 0;
-	va_list a;
-	char *p, *start;
+	int x = 0, r = 0;
+	va_list v_ls;
+	buffer *buf;
 
-	params_t params = PARAMS_INIT;
-
-	va_start(a, format);
-
-	if (!format || (format[0] == '%' && !format[1]))
+	buf = buf_new();
+	if (buf == NULL)
 		return (-1);
-	if (format[0] == '%' && format[1] == ' ' && !format[2])
+	if (format == NULL)
 		return (-1);
-	for (p = (char *)format; *p; p++)
+	va_start(v_ls, format);
+	while (format[x])
 	{
-		init_params(&params, a);
-		if (*p != '%')
+		buf_wr(buf);
+		if (format[x] == '%')
 		{
-			s += _putchar(*p);
+			r = opid(buf, v_ls, format, x);
+			if (r < 0)
+			{
+				x = r;
+				break;
+			}
+			x += r;
 			continue;
 		}
-		start = p;
-		p++;
-		while (get_flag(p, &params))
-		{
-			p++;
-		}
-		p = get_width(p, &params, a);
-		p = get_precision(p, &params, a);
-		if (get_modifier(p, &params))
-			p++;
-		if (!get_specifier(p))
-			s += print_from_to(start, p,
-					params.l_modifier || params.h_modifier ? p - 1 : 0);
-		else
-			s += get_print_func(p, a, &params);
+		buf->str[buf->index] = format[x];
+		buf_inc(buf);
+		x++;
 	}
-	_putchar(BUF_FLUSH);
-	va_end(a);
-	return (s);
+	buf_write(buf);
+	if (r >= 0)
+		x = buf->overflow;
+	buf_end(buf);
+	va_end(v_ls);
+	return (x);
 }
