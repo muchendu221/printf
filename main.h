@@ -1,46 +1,28 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdarg.h>
-
 /**
-* struct convert - defines a structure for symbols and functions
-*
-* @sym: The operator
-* @f: The function associated
+* struct print - structure for printing various types
+* @type: type to print
+* @func: function to print
 */
-struct convert
+typedef struct print
 {
-	char *sym;
-	int (*f)(va_list);
-};
-typedef struct convert conver_t;
+	char *type;
+	int (*func)(va_list);
+} print_t;
 
-/*Main functions*/
-int parser(const char *format, conver_t f_list[], va_list arg_list);
 int _printf(const char *format, ...);
+
 int _putchar(char c);
-int print_char(va_list);
-int print_string(va_list);
-int print_percent(va_list);
-int print_integer(va_list);
-int print_number(va_list);
-int print_binary(va_list);
-int print_reversed(va_list arg);
-int rot13(va_list);
-int unsigned_integer(va_list);
-int print_octal(va_list list);
-int print_hex(va_list list);
-int print_heX(va_list list);
+int _strlen(char *l);
+int _puts(char *str);
+int print_c(va_list c);
+int print_s(va_list s);
+int print_per(va_list p);
+int print_di(va_list di);
 
-/*Helper functions*/
-unsigned int base_len(unsigned int, int);
-char *rev_string(char *);
-void write_base(char *str);
-char *_memcpy(char *dest, char *src, unsigned int n);
-int print_unsgined_number(unsigned int);
-
-
-#endif
+#endif  /* main */
