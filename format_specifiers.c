@@ -1,9 +1,8 @@
 #include "main.h"
-
 /**
- * print_char - prints character
- * @list: list of characters to be printed
- * Return: count of arguments printed
+ * print_char - Prints character
+ * @list: list of arguments
+ * Return: Will return the amount of characters printed.
  */
 int print_char(va_list list)
 {
@@ -12,20 +11,9 @@ int print_char(va_list list)
 }
 
 /**
- *print_percent - prints %
- * @list:list of arguments
- * Return: count of characters printed
- */
-int print_percent(__attribute__((unused))va_list list)
-{
-	_putchar('%');
-	return (1);
-}
-
-/**
- * print_string - prints string to stdout
- * @list: list to be printed
- * Return: count of arguments to printed
+ * print_string - Prints a string
+ * @list: list of arguments
+ * Return: Will return the amount of characters printed.
  */
 int print_string(va_list list)
 {
@@ -38,4 +26,47 @@ int print_string(va_list list)
 	for (i = 0; str[i] != '\0'; i++)
 		_putchar(str[i]);
 	return (i);
+}
+
+/**
+ * print_percent - Prints a percent symbol
+ * @list: list of arguments
+ * Return: Will return the amount of characters printed.
+ */
+int print_percent(__attribute__((unused))va_list list)
+{
+	_putchar('%');
+	return (1);
+}
+
+/**
+ * print_integer - Prints an integer
+ * @list: list of arguments
+ * Return: Will return the amount of characters printed.
+ */
+int print_integer(va_list list)
+{
+	int num_length;
+
+	num_length = print_number(list);
+	return (num_length);
+}
+
+/**
+ * unsigned_integer - Prints Unsigned integers
+ * @list: List of all of the argumets
+ * Return: a count of the numbers
+ */
+int unsigned_integer(va_list list)
+{
+	unsigned int num;
+
+	num = va_arg(list, unsigned int);
+
+	if (num == 0)
+		return (print_unsgined_number(num));
+
+	if (num < 1)
+		return (-1);
+	return (print_unsgined_number(num));
 }
