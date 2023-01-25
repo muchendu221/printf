@@ -7,7 +7,7 @@
  */
 int print_char(va_list list)
 {
-	_putchar(va_agr(list, int));
+	_putchar(va_arg(list, int));
 	return (1);
 }
 
@@ -16,7 +16,7 @@ int print_char(va_list list)
  * @list:list of arguments
  * Return: count of characters printed
  */
-int print_percent(_attribute_((unused))va_list list)
+int print_percent(__attribute__((unused))va_list list)
 {
 	_putchar('%');
 	return (1);
